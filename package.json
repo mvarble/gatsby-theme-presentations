@@ -1,0 +1,36 @@
+{
+  "name": "@mvarble/gatsby-theme-presentations",
+  "version": "0.0.0",
+  "author": "Matthew Varble",
+  "license": "MIT",
+  "scripts": {
+    "build": "npx babel src --out-dir dist/ --ignore \"**/__tests__\" --ignore \"**/__mocks__\" --extensions \".ts\"",
+    "typegen": "npx tsc --emitDeclarationOnly --declaration --declarationDir dist/",
+    "bundle": "NODE_ENV=production npm run build && npm run typegen",
+    "watch": "npx babel -w src --out-dir dist/ --ignore \"**/__tests__\" --extensions \".ts,.tsx\""
+  },
+  "dependencies": {
+    "@mvarble/gatsby-plugin-mdx-config": "https://github.com/mvarble/gatsby-plugin-mdx-config#e786847675fe11506f99cddb59afaa53da3539b3",
+    "lodash": "^4.17.21",
+    "react-swipeable": "^7.0.0",
+    "react-use-measure": "^2.1.1",
+    "remark-frontmatter": "^4.0.1",
+    "zustand": "^4.0.0"
+  },
+  "peerDependencies": {
+    "@mdx-js/mdx": "^2.1.2",
+    "gatsby": "^4.21.0",
+    "gatsby-plugin-mdx": "^4.0.0",
+    "gatsby-source-filesystem": "^4.18.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.9",
+    "@babel/core": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/react": "^18.0.15",
+    "typescript": "^4.7.4",
+    "vfile": "^5.3.4"
+  }
+}
