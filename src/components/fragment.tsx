@@ -33,6 +33,7 @@ export default function Fragment(
   }: React.PropsWithChildren<FragmentProps>
 ) {
   // parse the props
+  console.log(sI, i);
   const slideIndex = parseIndex(sI);
   const index = parseIndex(i);
 
