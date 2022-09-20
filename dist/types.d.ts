@@ -1,7 +1,6 @@
 import type { Node, PluginOptions } from 'gatsby';
 export interface Options extends PluginOptions {
     sourceDir: string;
-    layoutPath: string;
 }
 export declare function defaultOptions(options: Partial<Options>): Options;
 export interface MdxNode extends Node {

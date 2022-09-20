@@ -1,4 +1,3 @@
-import { lstatSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { GatsbyNode, Node } from 'gatsby';
 import type { FileSystemNode } from 'gatsby-source-filesystem';
@@ -8,68 +7,6 @@ import { Options, defaultOptions, MdxNode } from './types';
 import { isNonnegativeInteger } from './utils';
 import remarkToDeckSchema from './remark-to-deck-schema';
 
-export const createPages: GatsbyNode["createPages"] = async (
-  { graphql, actions: { createPage }, reporter },
-  options: Partial<Options>,
-) => {
-  // get the path to the layout component
-  const { layoutPath } = defaultOptions(options);
-
-  // if the layout path does not exist, we throw an error
-  try {
-    lstatSync(resolve(layoutPath));
-  } catch (e) {
-    if (e.code === 'ENOENT') {
-      reporter.error('layout does not resolve', e, '@mvarble/gatsby-theme-presentations');
-    } else {
-      throw e;
-    }
-    return;
-  }
-
-  // grab all presentations
-  const { data } = await graphql(
-    `{
-      allPresentation {
-        nodes {
-          parent {
-            ... on Mdx {
-              internal {
-                contentFilePath
-              }
-            }
-          }
-          slug
-          id
-        }
-      }
-    }`
-  )
-  interface NodeData {
-    parent: {
-      internal: {
-        contentFilePath: string;
-      };
-    };
-    slug: string;
-    id: string;
-  };
-
-  // for each presentation, build a page on the site
-  // @ts-ignore
-  data.allPresentation.nodes.forEach((node: NodeData) => {
-    const mdxPath = node.parent.internal.contentFilePath;
-    const query = `?__contentFilePath=${mdxPath}`;
-    const componentPath = layoutPath + query;
-    createPage({
-      path: `/presentations${node.slug}`,
-      component: resolve(componentPath),
-      context: {
-        id: node.id,
-      }
-    });
-  });
-}
 export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] = async ({ 
   actions, 
   schema 

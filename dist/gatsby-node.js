@@ -3,9 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.unstable_shouldOnCreateNode = exports.onCreateWebpackConfig = exports.onCreateNode = exports.createSchemaCustomization = exports.createPages = void 0;
-
-var _nodeFs = require("node:fs");
+exports.unstable_shouldOnCreateNode = exports.onCreateWebpackConfig = exports.onCreateNode = exports.createSchemaCustomization = void 0;
 
 var _nodePath = require("node:path");
 
@@ -33,88 +31,14 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var createPages = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(_ref, options) {
-    var graphql, createPage, reporter, _defaultOptions, layoutPath, _yield$graphql, data;
-
+var createSchemaCustomization = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(_ref) {
+    var actions, schema, createTypes, typeDefs;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            graphql = _ref.graphql, createPage = _ref.actions.createPage, reporter = _ref.reporter;
-            // get the path to the layout component
-            _defaultOptions = (0, _types.defaultOptions)(options), layoutPath = _defaultOptions.layoutPath; // if the layout path does not exist, we throw an error
-
-            _context.prev = 2;
-            (0, _nodeFs.lstatSync)((0, _nodePath.resolve)(layoutPath));
-            _context.next = 14;
-            break;
-
-          case 6:
-            _context.prev = 6;
-            _context.t0 = _context["catch"](2);
-
-            if (!(_context.t0.code === 'ENOENT')) {
-              _context.next = 12;
-              break;
-            }
-
-            reporter.error('layout does not resolve', _context.t0, '@mvarble/gatsby-theme-presentations');
-            _context.next = 13;
-            break;
-
-          case 12:
-            throw _context.t0;
-
-          case 13:
-            return _context.abrupt("return");
-
-          case 14:
-            _context.next = 16;
-            return graphql("{\n      allPresentation {\n        nodes {\n          parent {\n            ... on Mdx {\n              internal {\n                contentFilePath\n              }\n            }\n          }\n          slug\n          id\n        }\n      }\n    }");
-
-          case 16:
-            _yield$graphql = _context.sent;
-            data = _yield$graphql.data;
-            ; // for each presentation, build a page on the site
-            // @ts-ignore
-
-            data.allPresentation.nodes.forEach(function (node) {
-              var mdxPath = node.parent.internal.contentFilePath;
-              var query = "?__contentFilePath=".concat(mdxPath);
-              var componentPath = layoutPath + query;
-              createPage({
-                path: "/presentations".concat(node.slug),
-                component: (0, _nodePath.resolve)(componentPath),
-                context: {
-                  id: node.id
-                }
-              });
-            });
-
-          case 20:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, null, [[2, 6]]);
-  }));
-
-  return function createPages(_x, _x2) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-exports.createPages = createPages;
-
-var createSchemaCustomization = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(_ref3) {
-    var actions, schema, createTypes, typeDefs;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            actions = _ref3.actions, schema = _ref3.schema;
+            actions = _ref.actions, schema = _ref.schema;
             createTypes = actions.createTypes;
             typeDefs = [schema.buildObjectType({
               name: 'Presentation',
@@ -138,47 +62,47 @@ var createSchemaCustomization = /*#__PURE__*/function () {
 
           case 4:
           case "end":
-            return _context2.stop();
+            return _context.stop();
         }
       }
-    }, _callee2);
+    }, _callee);
   }));
 
-  return function createSchemaCustomization(_x3) {
-    return _ref4.apply(this, arguments);
+  return function createSchemaCustomization(_x) {
+    return _ref2.apply(this, arguments);
   };
 }();
 
 exports.createSchemaCustomization = createSchemaCustomization;
 
-var unstable_shouldOnCreateNode = function unstable_shouldOnCreateNode(_ref5) {
-  var node = _ref5.node;
+var unstable_shouldOnCreateNode = function unstable_shouldOnCreateNode(_ref3) {
+  var node = _ref3.node;
   return node.internal.type === 'Mdx' && typeof node.parent === 'string' && _typeof(node.frontmatter) === 'object' && node.frontmatter !== null && typeof node.frontmatter['title'] === 'string' && typeof node.frontmatter['slug'] === 'string' && typeof node.frontmatter['date'] !== 'undefined';
 };
 
 exports.unstable_shouldOnCreateNode = unstable_shouldOnCreateNode;
 
 var onCreateNode = /*#__PURE__*/function () {
-  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(_ref6, options) {
-    var node, _ref6$actions, createNode, createParentChildLink, createNodeId, createContentDigest, getNode, _defaultOptions2, sourceDir, fileNode, absolutePath, _node$frontmatter, title, slug, date, maybeWidth, maybeHeight, maybeDescription, width, height, description, _yield$import, compile, remarkFrontmatter, vfile, fragmentsBySlide, presContent, presContentString, presNode;
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(_ref4, options) {
+    var node, _ref4$actions, createNode, createParentChildLink, createNodeId, createContentDigest, getNode, _defaultOptions, sourceDir, fileNode, absolutePath, _node$frontmatter, title, slug, date, maybeWidth, maybeHeight, maybeDescription, width, height, description, _yield$import, compile, remarkFrontmatter, vfile, fragmentsBySlide, presContent, presContentString, presNode;
 
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
-            node = _ref6.node, _ref6$actions = _ref6.actions, createNode = _ref6$actions.createNode, createParentChildLink = _ref6$actions.createParentChildLink, createNodeId = _ref6.createNodeId, createContentDigest = _ref6.createContentDigest, getNode = _ref6.getNode;
+            node = _ref4.node, _ref4$actions = _ref4.actions, createNode = _ref4$actions.createNode, createParentChildLink = _ref4$actions.createParentChildLink, createNodeId = _ref4.createNodeId, createContentDigest = _ref4.createContentDigest, getNode = _ref4.getNode;
             // parse the options
-            _defaultOptions2 = (0, _types.defaultOptions)(options), sourceDir = _defaultOptions2.sourceDir; // Filter out any nodes which were not sourced by this theme
+            _defaultOptions = (0, _types.defaultOptions)(options), sourceDir = _defaultOptions.sourceDir; // Filter out any nodes which were not sourced by this theme
 
             fileNode = getNode(node.parent);
             absolutePath = fileNode.absolutePath;
 
             if (absolutePath.includes((0, _nodePath.resolve)(process.cwd(), sourceDir))) {
-              _context3.next = 6;
+              _context2.next = 6;
               break;
             }
 
-            return _context3.abrupt("return");
+            return _context2.abrupt("return");
 
           case 6:
             /**
@@ -191,24 +115,24 @@ var onCreateNode = /*#__PURE__*/function () {
             height = typeof maybeHeight === 'number' && (0, _utils.isNonnegativeInteger)(maybeHeight) ? maybeHeight : 700;
             description = maybeDescription || ''; // perform a compile to grab the fragment indices
 
-            _context3.next = 12;
+            _context2.next = 12;
             return import('@mdx-js/mdx');
 
           case 12:
-            _yield$import = _context3.sent;
+            _yield$import = _context2.sent;
             compile = _yield$import.compile;
-            _context3.next = 16;
+            _context2.next = 16;
             return import('remark-frontmatter');
 
           case 16:
-            remarkFrontmatter = _context3.sent["default"];
-            _context3.next = 19;
+            remarkFrontmatter = _context2.sent["default"];
+            _context2.next = 19;
             return compile(node.body, (0, _gatsbyPluginMdxConfig.extendMdxOptions)({
               remarkPlugins: [remarkFrontmatter, _remarkToDeckSchema["default"]]
             }));
 
           case 19:
-            vfile = _context3.sent;
+            vfile = _context2.sent;
             // @ts-ignore
             fragmentsBySlide = vfile.data.presentation.fragmentsBySlide; // create the Gatsby node
 
@@ -240,21 +164,21 @@ var onCreateNode = /*#__PURE__*/function () {
 
           case 26:
           case "end":
-            return _context3.stop();
+            return _context2.stop();
         }
       }
-    }, _callee3);
+    }, _callee2);
   }));
 
-  return function onCreateNode(_x4, _x5) {
-    return _ref7.apply(this, arguments);
+  return function onCreateNode(_x2, _x3) {
+    return _ref5.apply(this, arguments);
   };
 }();
 
 exports.onCreateNode = onCreateNode;
 
-var onCreateWebpackConfig = function onCreateWebpackConfig(_ref8) {
-  var setWebpackConfig = _ref8.actions.setWebpackConfig;
+var onCreateWebpackConfig = function onCreateWebpackConfig(_ref6) {
+  var setWebpackConfig = _ref6.actions.setWebpackConfig;
   setWebpackConfig({
     resolve: {
       alias: {

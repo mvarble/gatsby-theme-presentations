@@ -13,10 +13,6 @@ function defaultOptions(options) {
     themeOptions.sourceDir = './content/presentations';
   }
 
-  if (!themeOptions.layoutPath) {
-    themeOptions.layoutPath = './src/layouts/presentation.tsx';
-  }
-
   return themeOptions;
 }
 
